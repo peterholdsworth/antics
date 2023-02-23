@@ -1,0 +1,12 @@
+cabal-version:      2.4
+name:               antics
+version:            0.1.0.0
+author:             Peter Holdsworth
+maintainer:         peter.holdsworth@and.digital
+extra-source-files: README.md
+
+executable antics
+    main-is:          Main.hs
+    build-depends:    base ^>=4.14.1.0, gloss==1.13.2.1
+    hs-source-dirs:   app
+    default-language: Haskell2010
