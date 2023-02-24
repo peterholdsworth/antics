@@ -6,4 +6,6 @@ cabal new-install --lib gloss
 
 cabal run
 
-Ctrl-C  Ctrl-C to terminate 
+Watch for approximately 2 minutes
+
+Ctrl-C Ctrl-C at command line to terminate 
