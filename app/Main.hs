@@ -1,15 +1,17 @@
 module Main where
 
 import Graphics.Gloss
+import Graphics.Gloss.Data.ViewPort
 import Data.List
 
 type X = Int
 type Y = Int
 type Square = (X,Y)
 type Direction = (X,Y) --  N = (0,1); E = (1,0); S = (0,-1); W = (-1,0);
+type State = (Square, [Square], Direction, Int) 
 
-move :: (Square, [Square], Direction, Int) -> (Square, [Square], Direction, Int)
-move  (ant, blacks, dir, max) = (ant', blacks', dir', max')
+move :: ViewPort -> Float -> State -> State
+move  _ _ (ant, blacks, dir, max) = (ant', blacks', dir', max')
   where 
     on_black = elem ant blacks
     add (x,y) (x',y') = (x+x',y+y')
@@ -39,10 +41,9 @@ ant_pic (x,y) dir = translate (fromIntegral x) (fromIntegral y) $ color red $ sc
     (0,1)  -> Rotate 270 ant
   where ant = polygon [(1,0),((-1), 0.7), ((-1), (-0.7))]
 
-drawing :: Float -> Picture
-drawing time = scale 40 40 $ pictures $ [grid_pic extent, blacks_pic blacks, ant_pic ant dir]
-  where
-    (ant, blacks, dir, extent) = head $ drop (floor $ 2 * time) $ iterate move ((0,0), [], (0,1), 0)
+drawing :: State -> Picture
+drawing (ant, blacks, dir, extent) = scale 20 20 $ pictures $ [grid_pic extent, blacks_pic blacks, ant_pic ant dir]
 
 main :: IO ()
-main = animate (InWindow "Langton's Ant" (1000, 1000) (0,0)) white drawing
+main = simulate (InWindow "Langton's Ant" (1500, 1500) (0,0)) white 100 ((0,0), [], (0,1), 0) drawing move
+-- main = simulate window background fps initialState render update
