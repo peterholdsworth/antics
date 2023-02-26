@@ -24,8 +24,8 @@ move  _ _ (ant, blacks, dir, max) = (ant', blacks', dir', max')
 
 grid_pic :: Int -> Picture
 grid_pic extent = pictures $
-  (map (\y -> line [((-ext),y),(ext,y)]) [(-ext)..ext])
-  ++ (map (\x -> line [(x, (-ext)),(x, ext)]) [(-ext)..ext])
+  (map (\y -> line [(-ext,y),(ext,y)]) [-ext..ext])
+  ++ (map (\x -> line [(x,-ext),(x,ext)]) [-ext..ext])
     where ext = (fromIntegral extent) + 0.5
 
 blacks_pic :: [Square] -> Picture
