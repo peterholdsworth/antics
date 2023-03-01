@@ -29,8 +29,7 @@ grid_pic extent = pictures $
     where ext = (fromIntegral extent) + 0.5
 
 blacks_pic :: [Square] -> Picture
-blacks_pic blacks = pictures $
-  map (\(x,y) -> translate (fromIntegral x) (fromIntegral y) $ rectangleSolid 1 1) blacks
+blacks_pic = pictures . map (\(x,y) -> translate (fromIntegral x) (fromIntegral y) $ rectangleSolid 1 1)
 
 ant_pic :: Square -> Direction -> Picture
 ant_pic (x,y) dir = translate (fromIntegral x) (fromIntegral y) $ color red $ scale 0.3 0.3 $ 
