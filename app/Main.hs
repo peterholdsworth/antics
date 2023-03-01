@@ -33,12 +33,7 @@ blacks_pic = pictures . map (\(x,y) -> translate (fromIntegral x) (fromIntegral 
 
 ant_pic :: Square -> Direction -> Picture
 ant_pic (x,y) dir = translate (fromIntegral x) (fromIntegral y) $ color red $ scale 0.3 0.3 $ 
-  case dir of 
-    (1,0)  -> Rotate 0   ant
-    (0,-1) -> Rotate 90  ant
-    (-1,0) -> Rotate 180 ant
-    (0,1)  -> Rotate 270 ant
-  where ant = polygon [(1,0),((-1), 0.7), ((-1), (-0.7))]
+  Rotate (case dir of {(1,0)->0; (0,-1)->90; (-1,0)->180; (0,1)->270}) $ polygon [(1,0),((-1), 0.7), ((-1), (-0.7))]
 
 drawing :: State -> Picture
 drawing (ant, blacks, dir, extent) = scale 20 20 $ pictures $ [grid_pic extent, blacks_pic blacks, ant_pic ant dir]
